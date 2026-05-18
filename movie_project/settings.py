@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
+import dj_database_url
+
 from pathlib import Path
 from datetime import timedelta
 
@@ -124,14 +127,17 @@ WSGI_APPLICATION = 'movie_project.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'MovieBlogAdmin',
-        'USER': 'postgres',
-        'PASSWORD': 'Subash@808',
-        'HOST': 'localhost',
-        'PORT': '5432'
-    }
+    'default': dj_database_url.parse(
+        os.environ.get('DATABASE_URL')
+    )
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'MovieBlogAdmin',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'Subash@808',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432'
+    # }
 }
 
 
