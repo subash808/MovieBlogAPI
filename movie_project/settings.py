@@ -14,7 +14,7 @@ import os
 import dj_database_url
 
 from dotenv import load_dotenv
-load_dotenv(".env.local")
+load_dotenv(".env.dev")
 
 from pathlib import Path
 from datetime import timedelta
