@@ -24,9 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-lw%clm=rt^4ox7pzgvc*6$&g$@7@4zr(%2z4l#h*#bwma9hamc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.1.44', 'localhost', '127.0.0.1', '192.168.1.36']
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['192.168.1.44', 'localhost', '127.0.0.1', '192.168.1.36']
 
 
 # Application definition
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    'whitenoise.runserver_nostatic',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -59,6 +61,7 @@ AUTH_USER_MODEL = 'users.User'
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
