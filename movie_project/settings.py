@@ -11,11 +11,11 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 import os
-import dj_database_url
 
 from dotenv import load_dotenv
 load_dotenv(".env.dev")
 
+import dj_database_url
 from pathlib import Path
 from datetime import timedelta
 
@@ -70,7 +70,16 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 AUTH_USER_MODEL = 'users.User'
 
