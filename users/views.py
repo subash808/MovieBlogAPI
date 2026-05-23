@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
+from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
@@ -85,6 +86,18 @@ def logOut(request):
 
         token.blacklist()
 
+        raw_access = request.auth
+        jti = raw_access['jti']
+        outstanding = OutstandingToken.objects.get(jti=jti)
+        BlacklistedToken.objects.get_or_create(token=outstanding)
+
+        return Response({
+            "status": True,
+            "message": 'Logged out successfully.'
+        }, status.HTTP_200_OK)
+    
+    except OutstandingToken.DoesNotExist:
+        # Access token not in outstanding list, just return success
         return Response({
             "status": True,
             "message": 'Logged out successfully.'

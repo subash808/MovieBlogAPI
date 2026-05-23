@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-lw%clm=rt^4ox7pzgvc*6$&g$@7@4zr(%2z4l#h*#bwma9hamc
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-# ALLOWED_HOSTS = ['192.168.1.44', 'localhost', '127.0.0.1', '192.168.1.36']
+# ALLOWED_HOSTS = ['192.168.1.44', 'localhost', '127.0.0.1', '192.168.1.37']
 
 
 # Application definition
@@ -115,13 +115,14 @@ CSRF_TRUSTED_ORIGINS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication'
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication'
+        'users.authentication.BlacklistCheckJWTAuthentication',
     ]
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),  # was lIFETIME
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=3650),  # was lIFETIME
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=3650), 
     'ROTATE_REFRESH_TOKENS': True,               # also was missing the S
     'BLACKLIST_AFTER_ROTATION': True,
     'UPDATE_LAST_LOGIN': True
